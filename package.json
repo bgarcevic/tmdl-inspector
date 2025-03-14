@@ -16,6 +16,10 @@
       {
         "command": "tmdl-inspector.selectProjectFolder",
         "title": "TMDL Inspector: Select Project Folder"
+      },
+      {
+        "command": "tmdl-inspector.scanWorkspace",
+        "title": "TMDL: Scan Workspace for Files"
       }
     ]
   },
