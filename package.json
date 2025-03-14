@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "tmdl-inspector.helloWorld",
-        "title": "Hello World"
+        "command": "tmdl-inspector.selectProjectFolder",
+        "title": "TMDL Inspector: Select Project Folder"
       }
     ]
   },

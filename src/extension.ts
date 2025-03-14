@@ -6,20 +6,21 @@ import * as vscode from 'vscode';
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "tmdl-inspector" is now active!');
+	const selectFolderCommand = vscode.commands.registerCommand('tmdl-inspector.selectProjectFolder', async () => {
+		const folderUri = await vscode.window.showOpenDialog({
+			canSelectFiles: false,
+			canSelectFolders: true,
+			canSelectMany: false,
+			title: 'Select TMDL Project Folder'
+		});
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('tmdl-inspector.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from TMDL Inspector!');
+		if (folderUri && folderUri[0]) {
+			const selectedFolderPath = folderUri[0].fsPath;
+			vscode.workspace.getConfiguration('tmdl-inspector').update('projectFolderPath', selectedFolderPath, vscode.ConfigurationTarget.Workspace);
+			vscode.window.showInformationMessage(`TMDL project folder selected: ${selectedFolderPath}`);
+		}
 	});
-
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(selectFolderCommand);
 }
 
 // This method is called when your extension is deactivated
